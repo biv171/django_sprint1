@@ -59,7 +59,7 @@ def post_detail(request, id):
 
 
 def category_posts(request, category_slug):
-    """"Функция обрабатывает ссылку на раздел Категории."""
+    """Функция обрабатывает ссылку на раздел Категории."""
     template_category = 'blog/category.html'
     context = {'category': category_slug}
     return render(request, template_category, context)
