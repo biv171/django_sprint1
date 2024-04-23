@@ -6,7 +6,11 @@
     Дата: {{ post.date }}
   </li>
   <li>
-    Категория: <a href="{{ post.category }}">{{ post.category }}</a>
+    {% if request.resolver_match.view_name  == 'blog:index' %}
+      Категория: <a href="{{ post.category }}">{{ post.category }}</a>
+    {% elif request.resolver_match.view_name  == 'blog:post_detail'%}
+      Категория: <a href="not-my-day">{{ post.category }}</a>  
+    {% endif %}
   </li>
 </ul>          
 <p>
@@ -14,5 +18,5 @@
     {{ post.text|truncatewords:10 }}
   {% elif request.resolver_match.view_name  == 'blog:post_detail'%}
     {{ post.text|linebreaksbr }}    
-  {% endif %}"
+  {% endif %}
 </p>
