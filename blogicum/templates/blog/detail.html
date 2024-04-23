@@ -6,20 +6,9 @@
 {% endblock %}
 
 {% block content %}
+  
   <article>
-    <ul>
-      <li>
-        Место: {{ post.location }}              
-      </li>
-      <li>
-        Дата: {{ post.date }}
-      </li>
-      <li>
-        Категория: <a href="not-my-day">{{ post.category }}</a>
-      </li>
-    </ul>         
-    <p>
-      {{ post.text|linebreaksbr }}
-    </p>          
+    {% include "includes/card.html" %}       
   </article>
+
 {% endblock %}
