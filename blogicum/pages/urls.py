@@ -1,5 +1,5 @@
-from django.urls import path
 from . import views
+from django.urls import path
 
 # Общее простраство имен
 app_name = 'pages'

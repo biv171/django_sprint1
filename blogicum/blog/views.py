@@ -1,8 +1,9 @@
 from django.shortcuts import render
+import operator
 
 posts = [
     {
-        'id': 0,
+        'id': 10,
         'location': 'Остров отчаянья',
         'date': '30 сентября 1659 года',
         'category': 'travel',
@@ -14,7 +15,7 @@ posts = [
                 который назвал островом Отчаяния.''',
     },
     {
-        'id': 1,
+        'id': 11,
         'location': 'Остров отчаянья',
         'date': '1 октября 1659 года',
         'category': 'not-my-day',
@@ -30,7 +31,7 @@ posts = [
                 гиблого места.''',
     },
     {
-        'id': 2,
+        'id': 12,
         'location': 'Остров отчаянья',
         'date': '25 октября 1659 года',
         'category': 'not-my-day',
@@ -47,14 +48,26 @@ posts = [
 def index(request):
     """Функция обрабатывает ссылку на Главную страницу index.html."""
     template_index = 'blog/index.html'
-    context = {'posts_list': posts}
+    # Сортируем от новых к старым
+    posts_sorted = sorted(posts, key=operator.itemgetter('id'), reverse=True)
+    context = {'posts_list': posts_sorted}
     return render(request, template_index, context)
 
 
-def post_detail(request, id):
+def post_detail(request, post_id):
     """Функция обрабатывает ссылку на Отдельный пост."""
+    # Ищем индекс в словарях списка
+    posts_index = None
+    for item in posts:
+        if item['id'] == post_id:
+            posts_index = posts.index(item)
+            break
+    # Если не нашли выбрасываем исключение
+    if posts_index is None:
+        raise Exception('Page not found')
+
     template_detail = 'blog/detail.html'
-    context = {'post': posts[id]}
+    context = {'post': posts[posts_index]}
     return render(request, template_detail, context)
 
 

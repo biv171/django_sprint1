@@ -6,31 +6,31 @@
 {% endblock %}
 
 {% block content %}
-  <div class="container py-5">
-    <h1>Лента записей</h1>                        
-    <!-- Перебираем в цикле все посты -->
-    {% for post in posts_list reversed %}
-      <hr>
-      <article>
-        <ul>
-          <li>
-            Место: {{ post.location }}            
-          </li>
-          <li>
-            Дата: {{ post.date }}
-          </li>
-          <li>
-           Категория: <a href="{{ post.category }}">{{ post.category }}</a>
-          </li>
-        </ul>          
-        <!-- Выводим первые 10 слов текста. -->
-        <p>
-          {{ post.text|truncatewords:10 }}
-        </p>
-        <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
-      </article>  
-    {% empty %}
-      Постов на текущий момент нет.
-    {% endfor %} 
-  </div>
+  <h1>Лента записей</h1>                        
+  <!-- Перебираем в цикле все посты -->
+  {% for post in posts_list %}
+    <hr>
+
+    <article>
+      <ul>
+        <li>
+          Место: {{ post.location }}            
+        </li>
+        <li>
+          Дата: {{ post.date }}
+        </li>
+        <li>
+          Категория: <a href="{{ post.category }}">{{ post.category }}</a>
+        </li>
+      </ul>          
+      <!-- Выводим первые 10 слов текста. -->
+      <p>
+        {{ post.text|truncatewords:10 }}
+      </p>
+      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
+    </article>  
+    
+  {% empty %}
+    Постов на текущий момент нет.
+  {% endfor %} 
 {% endblock %}

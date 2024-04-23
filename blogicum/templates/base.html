@@ -17,7 +17,9 @@
   <body>
     {% include "includes/header.html" %}
     <main>
-      {% block content%}..Нет контента..{% endblock %}
+      <div class="container py-5"> 
+        {% block content%}..Нет контента..{% endblock %}
+      </div>
     </main>
     {% include "includes/footer.html" %}
   </body>
