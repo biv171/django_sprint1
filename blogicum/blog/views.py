@@ -1,5 +1,7 @@
 from django.shortcuts import render
-import operator
+from django.http import Http404
+from blog.calc import get_dict
+
 
 posts = [
     {
@@ -48,26 +50,22 @@ posts = [
 def index(request):
     """Функция обрабатывает ссылку на Главную страницу index.html."""
     template_index = 'blog/index.html'
-    # Сортируем от новых к старым
-    posts_sorted = sorted(posts, key=operator.itemgetter('id'), reverse=True)
-    context = {'posts_list': posts_sorted}
+    dict_value = get_dict().values()
+
+    # Сортируем по ключу
+    # new_posts = dict(sorted(new_posts.items(), reverse=True)) 
+
+    context = {'posts_list': dict_value}
     return render(request, template_index, context)
 
 
 def post_detail(request, post_id):
     """Функция обрабатывает ссылку на Отдельный пост."""
-    # Ищем индекс в словарях списка
-    posts_index = None
-    for item in posts:
-        if item['id'] == post_id:
-            posts_index = posts.index(item)
-            break
-    # Если не нашли выбрасываем исключение
-    if posts_index is None:
-        raise Exception('Page not found')
-
     template_detail = 'blog/detail.html'
-    context = {'post': posts[posts_index]}
+    # Если не нашли выбрасываем исключение
+    if get_dict().get(post_id, 'no key') == 'no key':
+        raise Http404("Poll does not exist")
+    context = {'post': get_dict()[post_id]}
     return render(request, template_detail, context)
 
 

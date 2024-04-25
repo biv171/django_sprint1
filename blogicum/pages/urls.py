@@ -1,11 +1,11 @@
-from . import views
 from django.urls import path
+from .views import about, rules
 
 # Общее простраство имен
 app_name = 'pages'
 
 # Пути/ссылки приложения blog
 urlpatterns = [
-    path('about/', views.about, name='about'),
-    path('rules/', views.rules, name='rules'),
+    path('about/', about, name='about'),
+    path('rules/', rules, name='rules'),
 ]

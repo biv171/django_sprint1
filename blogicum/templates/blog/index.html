@@ -10,10 +10,7 @@
   <!-- Перебираем в цикле все посты -->
   {% for post in posts_list %}
     <hr>
-    <article>
-      {% include "includes/card.html" %}
-      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
-    </article>  
+    {% include "includes/card.html" %}
   {% empty %}
     Постов на текущий момент нет.
   {% endfor %} 

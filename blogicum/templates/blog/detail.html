@@ -1,14 +1,13 @@
 {% extends "base.html" %}
 
 {% block title %}
-  <!-- Формируется из локации и даты -->
   {{ post.location }}. {{ post.date }}
 {% endblock %}
 
 {% block content %}
   
   <article>
-    {% include "includes/card.html" %}       
+    {% include "includes/card.html" %}
   </article>
 
 {% endblock %}
