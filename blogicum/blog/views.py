@@ -46,16 +46,19 @@ posts = [
     },
 ]
 
+new_posts = {}
+for item in posts:
+    id = item['id']
+    new_posts[id] = item
+
 
 def index(request):
     """Функция обрабатывает ссылку на Главную страницу index.html."""
     template_index = 'blog/index.html'
-    dict_value = get_dict().values()
 
     # Сортируем по ключу
-    # new_posts = dict(sorted(new_posts.items(), reverse=True)) 
-
-    context = {'posts_list': dict_value}
+    new_posts_desc = dict(sorted(new_posts.items(), reverse=True))
+    context = {'posts_list': new_posts_desc.values()}
     return render(request, template_index, context)
 
 
@@ -63,9 +66,9 @@ def post_detail(request, post_id):
     """Функция обрабатывает ссылку на Отдельный пост."""
     template_detail = 'blog/detail.html'
     # Если не нашли выбрасываем исключение
-    if get_dict().get(post_id, 'no key') == 'no key':
+    if new_posts.get(post_id, 'no key') == 'no key':
         raise Http404("Poll does not exist")
-    context = {'post': get_dict()[post_id]}
+    context = {'post': new_posts[post_id]}
     return render(request, template_detail, context)
 
 
