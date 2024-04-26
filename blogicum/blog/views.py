@@ -45,10 +45,8 @@ posts = [
     },
 ]
 
-new_posts = {}
-for item in posts:
-    id = item['id']
-    new_posts[id] = item
+# Для удобства собираем новую структуру
+new_posts = {post['id']: post for post in posts}
 
 
 def index(request):
@@ -65,8 +63,8 @@ def post_detail(request, post_id):
     """Функция обрабатывает ссылку на Отдельный пост."""
     template_detail = 'blog/detail.html'
     # Если не нашли выбрасываем исключение
-    if new_posts.get(post_id, 'no key') == 'no key':
-        raise Http404("Poll does not exist")
+    if new_posts.get(post_id) is None:
+        raise Http404("Post does not exist")
     context = {'post': new_posts[post_id]}
     return render(request, template_detail, context)
 
